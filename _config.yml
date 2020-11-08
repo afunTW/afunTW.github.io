@@ -125,4 +125,4 @@ deploy:
   type: git
   repo:
       github: git@github.com:afunTW/afunTW.github.io.git
-  branch: dev
+  branch: master
