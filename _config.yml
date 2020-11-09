@@ -118,6 +118,7 @@ theme_config:
     github_url: https://github.com/afunTW
     linkedin_url: https://www.linkedin.com/in/chen-ming-yang/
     mailto: afun@afun.tw
+    favicon: https://github.githubassets.com/favicons/favicon.png
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
