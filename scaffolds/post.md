@@ -6,3 +6,5 @@ catgories:
 tags:
 cover: 
 ---
+{% asset_img %}
+<!-- more -->

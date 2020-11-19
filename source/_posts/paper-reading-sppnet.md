@@ -1,15 +1,13 @@
 ---
 title: Paper Reading - SPPNet
 date: 2018-02-16 00:00:00
-categories: Data Science
-tags:
-    - Deep Learning
-    - Computer Vision
-    - Paper
-cover: cover-reading.jpeg
+categories: AI
+tags: [deep learning, computer vision, paper, sppnet]
+cover: reading.jpeg
 ---
-
+{% asset_img reading.jpeg %}
 > arxiv 論文: [https://arxiv.org/abs/1406.4729](https://arxiv.org/abs/1406.4729)
+<!-- more -->
 
 ## 簡介
 

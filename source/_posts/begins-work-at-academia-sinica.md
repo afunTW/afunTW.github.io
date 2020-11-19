@@ -1,11 +1,13 @@
 ---
 title: When I start at Academia Sinica
 date: 2016-11-18 00:00:00
-categories: Life
-tags:
-    - Work
-cover: cover-triangular.jpeg
+categories: Work
+tags: [work]
+cover: triangular.jpeg
 ---
+{% asset_img triangular.jpeg %}
+紀錄剛開始在中研院當研發替代役的心得
+<!-- more -->
 
 說來有點小丟臉，都畢業了還在新手村。
 

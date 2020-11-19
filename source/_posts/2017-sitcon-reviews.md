@@ -1,11 +1,12 @@
 ---
 title: 2017 SITCON reviews
 date: 2017-05-18 00:00:00
-categories: Conference
-tags:
-    - SITCON
-cover: 2017-sitcon.jpg
+categories: Life
+tags: [conference, sitcon]
+cover:
 ---
+{% asset_img 2017-sitcon.jpg %}
+<!-- more -->
 
 ## 攤位
 
@@ -30,7 +31,7 @@ cover: 2017-sitcon.jpg
 
 順便紀錄一下 @focaaby 大大給我的文章, 用白話文解釋區塊鍊並提及一些區塊練的問題, 我以一個完全沒接觸過區塊鍊資訊的人看完文章, 覺得蠻平易近人而且簡潔扼要, 希望給一些想要了解的人參考看看
 
-> reference: https://www.facebook.com/notes/shi-cho-cha/%E6%AF%8F%E6%97%A5%E9%96%B1%E8%AE%80%E5%BF%83%E5%BE%97-20170317/10155112963374483/
+> reference: [facebook page](https://www.facebook.com/notes/shi-cho-cha/%E6%AF%8F%E6%97%A5%E9%96%B1%E8%AE%80%E5%BF%83%E5%BE%97-20170317/10155112963374483/)
 
 ## 演講
 
