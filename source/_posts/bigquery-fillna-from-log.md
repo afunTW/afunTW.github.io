@@ -2,7 +2,7 @@
 title: Bigquery Tips - Fillna from log
 date: 2020-10-24 00:00:00
 updated: 2020-11-20 00:00:45
-catgories: Data
+categories: Data
 tags: [bigquery, sql]
 cover: coding.png
 ---
