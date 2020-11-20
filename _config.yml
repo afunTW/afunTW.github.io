@@ -5,7 +5,7 @@
 # Site
 title: 'afunTW'
 subtitle: 'A Foolish Consistency is the Hobgoblin of Little Minds'
-description: 'Where we share knowledge'
+description: 'Valar Morghuils'
 keywords: 'blog'
 author: afunTW
 language: zh-tw
@@ -16,7 +16,7 @@ timezone: 'Asia/Taipei'
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
 url: https://afuntw.github.io
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :category/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -103,7 +103,7 @@ ignore:
 #theme: landscape
 
 #https://github.com/klugjo/hexo-theme-clean-blog
-theme: next
+theme: custom_next
 #theme_config:
 #    menu:
 #        Github:
