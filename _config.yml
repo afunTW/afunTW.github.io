@@ -103,7 +103,7 @@ ignore:
 #theme: landscape
 
 #https://github.com/klugjo/hexo-theme-clean-blog
-theme: next
+theme: custom
 #theme_config:
 #    menu:
 #        Github:
