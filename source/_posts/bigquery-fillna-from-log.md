@@ -1,23 +1,21 @@
 ---
-title: Bigquery Tips - Fillna from log
+title: BigQuery - fill data from log
 date: 2020-10-24 00:00:00
 updated: 2020-11-20 00:00:45
-categories: Data
+categories: Data Engineering
 tags: [bigquery, sql]
-cover: coding.png
 ---
-{% asset_img coding.png %}
-資料科學領域中，寫 SQL 拿資料是非常基礎也非常常用的需求，各式各樣的 Database 都有其效能與特殊寫法，而最近因為雲端化 data warehouse 的需求比較頻繁的寫 bigquery，這邊也順便紀錄一下幾個情境
+> SQL 寫的好，要飯要到老，今天就來分享一下要飯的幾個小技巧
 
 <!-- more -->
 
-> SQL 寫的好，要飯要到老，今天就來分享一下要飯的幾個小技巧
+資料科學領域中，寫 SQL 拿資料是非常基礎也非常常用的需求，各式各樣的 Database 都有其效能與特殊寫法，而最近因為雲端化 data warehouse 的需求比較頻繁的寫 bigquery，這邊也順便紀錄一下幾個情境
 
 雲端化的資料管理中，data lake 是所有資料的最上游，與傳統資料庫的設計中遵循著 ER or EER model 並不完全相同，同時包含著各種非結構化的資料型式
 
 - 資料庫表格：被設計過的表格型式，通常會有 Primary Key (PK) 或是 Foreign Key (FK) 供參考操作
 - Event Log：根據 timestamp 紀錄事件發生的先後順序
-- etc ...
+- ...
 
 建立 warehouse 的過程中經常需要將資料庫表格與 event log 兩種資料型式做合併處理，除了要釐清商業邏輯以外，也時常要了解兩種機制設計上的衝突與概念
 
@@ -27,9 +25,7 @@ cover: coding.png
 
 除了需要大量的溝通與理解以外，還要透過 SQL 做 data cleaning，這邊以 bigquery 為例紀錄一下我常遇到的情境
 
-# **從 Log 中取得上一筆最近的資料做補值**
-
----
+# 從 Log 中取得上一筆最近的資料做補值
 
 > 核心概念：將資料表與 Log 做 union 後根據 timestamp 排序，再透過 window function 取值
 
@@ -93,7 +89,7 @@ FROM GET_PREV_CAPACITY
 WHERE data_anchor = 'switch'
 ```
 
-# **確保補值的資料來源是 Log**
+# 確保補值的資料來源是 Log
 
 > 核心概念：透過 anchor 確保補值的資料來源
 
@@ -153,7 +149,7 @@ IF(prev_data_anchor = 'log',
 ) AS full_capacity
 ```
 
-# **從 Log 中取得上一筆最近的非空值資料做補值**
+# 從 Log 中取得上一筆最近的非空值資料做補值
 
 > 核心概念：熟悉 window function 的完整語法
 
