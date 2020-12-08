@@ -2,11 +2,11 @@
 title: 資料分析入門：具有影響力的文章關鍵字
 date: 2017-01-14 00:00:00
 categories: Analysis
-tags: [python, crawling, tfidf]
-cover: analyze.jpeg
+tags: [python, tfidf]
 ---
-{% asset_img analyze.jpeg %}
-透過一個小小的資料分析專案了解簡單的資料探勘過程
+
+> 透過一個小小的資料分析專案了解簡單的資料探勘過程
+
 <!-- more -->
 
 ## 概略流程介紹
