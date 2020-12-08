@@ -1,12 +1,10 @@
 ---
-title: When I start at Academia Sinica
+title: 中研院研發替代役的新手紀錄
 date: 2016-11-18 00:00:00
-categories: Work
-tags: [work]
-cover: triangular.jpeg
+categories: Life
+tags: [academia sinica, rdss]
 ---
-{% asset_img triangular.jpeg %}
-紀錄剛開始在中研院當研發替代役的心得
+>  紀錄剛開始在中研院當研發替代役的心得
 <!-- more -->
 
 說來有點小丟臉，都畢業了還在新手村。
