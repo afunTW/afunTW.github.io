@@ -5,7 +5,7 @@ categories: DevOps
 tags: [ubuntu, server, nis, iptable]
 ---
 
-紀錄上古時代的 NIS 使用紀錄
+> 紀錄上古時代的 NIS 使用紀錄
 
 <!-- more -->
 
