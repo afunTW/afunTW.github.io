@@ -3,10 +3,10 @@ title: Learning F2E - Routing
 date: 2016-11-28 00:00:00
 catgories: Frontend
 tags: [frontend, routing]
-cover: coding.png
 ---
-{% asset_img coding.png %}
-紀錄學習 F2E 的瞬間
+
+> 紀錄學習 F2E 的瞬間
+
 <!-- more -->
 
 這次改一下寫文章的方式，把碎碎念的部份放到最後，直接先紀錄一下這篇想整理的東西
