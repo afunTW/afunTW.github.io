@@ -3,10 +3,13 @@ title: 2017 SITCON reviews
 date: 2017-05-18 00:00:00
 categories: Life
 tags: [conference, sitcon]
-cover:
 ---
-{% asset_img 2017-sitcon.jpg %}
+
+> 側寫 2017 SITCON 的紀錄
+
 <!-- more -->
+
+![](2017-sitcon.jpg)
 
 ## 攤位
 

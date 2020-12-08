@@ -3,10 +3,10 @@ title: Setting iptable in NIS
 date: 2016-12-26 00:00:00
 categories: DevOps
 tags: [ubuntu, server, nis, iptable]
-cover: server.jpeg
 ---
-{% asset_img server.jpeg %}
-紀錄使用比 LDAP 還要更久以前的工具心得
+
+紀錄上古時代的 NIS 使用紀錄
+
 <!-- more -->
 
 # NIS ?
