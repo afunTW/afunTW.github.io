@@ -1,5 +1,5 @@
 ---
-title: 論文閱讀 - RCNN
+title: Paper Study - RCNN
 date: 2018-02-14 00:00:00
 categories: AI
 tags: [deep learning, computer vision, paper, rcnn]
