@@ -1,7 +1,7 @@
 ---
 title: Learning F2E - Routing
 date: 2016-11-28 00:00:00
-catgories: Frontend
+categories: Frontend
 tags: [frontend, routing]
 ---
 
