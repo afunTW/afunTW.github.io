@@ -1,12 +1,12 @@
 ---
-title: Paper Reading - RCNN
+title: 論文閱讀 - RCNN
 date: 2018-02-14 00:00:00
 categories: AI
 tags: [deep learning, computer vision, paper, rcnn]
-cover: reading.jpeg
 ---
-{% asset_img reading.jpeg %}
+
 > arxiv 論文: [https://arxiv.org/abs/1311.2524](https://arxiv.org/abs/1311.2524)
+
 <!-- more -->
 
 ## 簡介
