@@ -1,12 +1,12 @@
 ---
 title: Crawling IMDB by API
 date: 2018-01-22 00:00:00
-categories: Backend
-tags: [python, crawling, imdb]
-cover: coding.png
+categories: Crawling
+tags: [python, imdb]
 ---
-{% asset_img coding.png %}
-IMDB 一直都是資料分析的範例中很熱門的主題，網路上其實也有很多 API 甚至是 Python library 可以直接送 request 拿到各個電影的資訊。
+
+>   Demonstrate how to crawling IMDB data from scratch
+
 <!-- more -->
 
 這次是為了做「透過電影海報預測評分及分類」的 CNN task 所做的事前準備，我們必須取得至少上千至上萬筆資料，每一筆資料包含一部電影的海報（當作 input x）以及這部電影的評分與分類（當作 output y），雖然也可以純手工用 `requests` + `BeautifulSoup4` 或是 `Selenium` 或是 `Scrapy` 爬 IMDB 網頁上的資訊，但是有 API 可以用，像我這種懶人就會直接用 API 了。
