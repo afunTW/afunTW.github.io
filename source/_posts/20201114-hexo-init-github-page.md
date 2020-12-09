@@ -2,7 +2,7 @@
 title: Hexo - 基本設定與 GitHub Page 發佈流程
 date: 2020-11-14 00:00:00
 updated: 2020-12-10 01:29:31
-categories: blog
+categories: Blog
 tags: [hexo, github]
 ---
 
