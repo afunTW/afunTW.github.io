@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"afuntw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="每個人的條件都不一樣, 所以才有了 Workaround solution">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Download gdrive big file with curl">
+<meta property="og:url" content="https://afuntw.github.io/data-engineering/20180804-download-gdrive-bigfile-with-curl/index.html">
+<meta property="og:site_name" content="afunTW">
+<meta property="og:description" content="每個人的條件都不一樣, 所以才有了 Workaround solution">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://afuntw.github.io/data-engineering/20180804-download-gdrive-bigfile-with-curl/github-lfs-billing-verview.png">
+<meta property="og:image" content="https://afuntw.github.io/data-engineering/20180804-download-gdrive-bigfile-with-curl/check-virus-preview.png">
+<meta property="article:published_time" content="2018-08-04T05:44:06.000Z">
+<meta property="article:modified_time" content="2020-12-09T05:44:06.000Z">
+<meta property="article:author" content="afunTW">
+<meta property="article:tag" content="gdrive">
+<meta property="article:tag" content="crawling">
+<meta property="article:tag" content="curl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://afuntw.github.io/data-engineering/20180804-download-gdrive-bigfile-with-curl/github-lfs-billing-verview.png">
+
+<link rel="canonical" href="https://afuntw.github.io/data-engineering/20180804-download-gdrive-bigfile-with-curl/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Download gdrive big file with curl | afunTW</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">afunTW</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">A Foolish Consistency is the Hobgoblin of Little Minds</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://afuntw.github.io/data-engineering/20180804-download-gdrive-bigfile-with-curl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="afunTW">
+      <meta itemprop="description" content="Valar Morghuils">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="afunTW">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Download gdrive big file with curl
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-08-04 13:44:06" itemprop="dateCreated datePublished" datetime="2018-08-04T13:44:06+08:00">2018-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-09 13:44:06" itemprop="dateModified" datetime="2020-12-09T13:44:06+08:00">2020-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/data-engineering/" itemprop="url" rel="index"><span itemprop="name">Data Engineering</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>  每個人的條件都不一樣, 所以才有了 Workaround solution</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="依賴-GitHub-的解法"><a href="#依賴-GitHub-的解法" class="headerlink" title="依賴 GitHub 的解法"></a>依賴 GitHub 的解法</h1><p>在 Deep Learning 的專案中, 為了測試或是 demo 都會提供事先訓練好的 pre-trained models, 而這些 models 往往 size 都是動輒 &gt; 100 MB.</p>
+<blockquote>
+<p>   reference: <a target="_blank" rel="noopener" href="https://help.github.com/articles/what-is-my-disk-quota/">What is my disk quota? - User Documentation</a></p>
+</blockquote>
+<p>在 GitHub 的官網中可以看到單一文件最大只允許 100 MB, 因此建議如果有比較大的檔案或是 binary file, 可以使用 git-lfs 將大型檔案存在其他地方</p>
+<p>每個帳號在 GitHub.com 上都有 1 GB 的空間可以使用, 透過 Setting &gt; Billing &gt; Git LFS Data 可以檢查剩餘空間</p>
+<p><img src="github-lfs-billing-verview.png"></p>
+<p>這是一個好解法, 也是另外一個學習門檻, 如果沒有其他 server 可以使用, GitHub 所提供的 1 GB 對於儲存 model 來說真的只是杯水車薪, 尤其是當你的 deep learning 專案中有做 ensemble 需要將多個 model 集成的時候</p>
+<h1 id="透過-Google-Drive-的-Workaround"><a href="#透過-Google-Drive-的-Workaround" class="headerlink" title="透過 Google Drive 的 Workaround"></a>透過 Google Drive 的 Workaround</h1><p>說到足夠大的儲存空間，應該會有很多學生想到的是以前在學校使用的 google drive (就算是個人使用的免費空間至少也有 15GB), 而這就是這次 workaround 的必要條件</p>
+<p>上傳檔案並將其權限公開之後, 需要透過 API 才方便寫在 shell 中使用</p>
+<blockquote>
+<p>  <a target="_blank" rel="noopener" href="https://drive.google.com/uc?export=download&id=$file_id">https://drive.google.com/uc?export=download&amp;id=</a><FILE_ID></p>
+</blockquote>
+<p>Ubuntu 上大家經常使用的下載指令無非是 wget 跟 curl, 如果是針對 google drive 的工具也有人會推荐 <a target="_blank" rel="noopener" href="https://github.com/prasmussen/gdrive">gdrive</a></p>
+<p>說一點題外話, 其實在剛接觸指令的時候, 被教導取得 source code 或是文件請愛用 wget 下載, 不要使用複製貼上, 因為各種縮排或是 encoding 可能會被改變</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> remember to replace the FILE_ID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> wget https://drive.google.com/uc?<span class="built_in">export</span>=download&amp;id=&lt;FILE_ID&gt;</span></span><br></pre></td></tr></table></figure>
+<p>透過上面的指令下載, 結果當然是失敗 (不然就沒有必要寫這篇文章), 而原因其實跟我們上面提到的有關 (model size 動輒 &gt; 100 MB), 而 Google 網站上在 Security 的部份有提到目前下載檔案如果檔案超過 100 MB 就無法掃描檢查該檔案是否有病毒</p>
+<blockquote>
+<p>   <a target="_blank" rel="noopener" href="https://support.google.com/a/answer/172541?hl=en">Upload files to Google Drive - G Suite Administrator Help</a></p>
+</blockquote>
+<p>實際上操作的時候就會跳出視窗詢問你是否確定要繼續下載, 所以你如果單純使用 wget 或是 curl 的話, 只會拿到該頁面的 HTML 檔案而已</p>
+<p><img src="check-virus-preview.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> remember to replace the FILE_ID</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> wget --no-check-certificate https://drive.google.com/uc?<span class="built_in">export</span>=download&amp;id=&lt;FILE_ID&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>過去透過 <code>--no-check-certificate</code> 似乎可以繞過檢查但嘗試後發現並不行</p>
+<blockquote>
+<p>  2019.04.11 Update: 感謝 Sean 指正，<code>--no-check-certificate</code> 只是不檢查 HTTPS 憑證有效性，跟掃毒沒關係</p>
+</blockquote>
+<h2 id="先說結論"><a href="#先說結論" class="headerlink" title="先說結論"></a>先說結論</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">download_from_gdrive() &#123;</span><br><span class="line">    file_id=$1</span><br><span class="line">    file_name=$2</span><br><span class="line">    </span><br><span class="line">    # first stage to get the warning html</span><br><span class="line">    curl -c /tmp/cookies \</span><br><span class="line">    &quot;https://drive.google.com/uc?export=download&amp;id=$file_id&quot; &gt; \</span><br><span class="line">    /tmp/intermezzo.html</span><br><span class="line"></span><br><span class="line">    # second stage to extract the download link from html above</span><br><span class="line">    download_link=$(cat /tmp/intermezzo.html | \</span><br><span class="line">    grep -Po &#x27;uc-download-link&quot; [^&gt;]* href=&quot;\K[^&quot;]*&#x27; | \</span><br><span class="line">    sed &#x27;s/\&amp;amp;/\&amp;/g&#x27;)</span><br><span class="line">    curl -L -b /tmp/cookies \</span><br><span class="line">    &quot;https://drive.google.com$download_link&quot; &gt; $file_name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> download_from_gdrive &lt;FILE_ID&gt; &lt;OUTPUT_FILENAME&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>說起來其實步驟不多也不難理解, 參考了 <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/32742700/4070887">StackOverflow</a> 上的作法, 帶入爬蟲的概念用指令取得頁面上真正的下載連結送出第二次請求就可以成功下載</p>
+<hr>
+<p>第一個步驟主要是先取得檔案, 透過 curl 的指令送出請求, 我們同時將 cookies 跟 HTML 都存在 tmp 中, 根據 Ubuntu 的設定不同, 存在該資料夾底下的檔案會在一段時間後被系統自動刪除</p>
+<p>第二個步驟則是要從 HTML 中把下載連結 parse 出來, 首先第一個難關就是用 grep 寫 regular expression, 這邊是直接參考別人的寫法, 如果之後失效的話也可以先從這個地方開始檢查 (突然懷念起 BeautifulSoup4 的美好)</p>
+<p>接著 sed 處理的只是單純的將 &amp; 在 HTML tag 中的表示方式轉回一般符號的型式, 最後再附上 cookies 對實際下載連結送出請求即可</p>
+<h2 id="大功告成！"><a href="#大功告成！" class="headerlink" title="大功告成！"></a>大功告成！</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/gdrive/" rel="tag"># gdrive</a>
+              <a href="/tags/crawling/" rel="tag"># crawling</a>
+              <a href="/tags/curl/" rel="tag"># curl</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/data-engineering/20180524-ubuntu-1604-install-cuda-bomb-note/" rel="prev" title="Ubuntu 16.04 安裝 CUDA + cuDNN + nvidia driver 的踩雷心得 (非安裝步驟詳解)">
+      <i class="fa fa-chevron-left"></i> Ubuntu 16.04 安裝 CUDA + cuDNN + nvidia driver 的踩雷心得 (非安裝步驟詳解)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/data-engineering/20180905-docker-for-deep-learning-primer/" rel="next" title="Docker for deep learning primer">
+      Docker for deep learning primer <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B3%B4-GitHub-%E7%9A%84%E8%A7%A3%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">依賴 GitHub 的解法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-Google-Drive-%E7%9A%84-Workaround"><span class="nav-number">2.</span> <span class="nav-text">透過 Google Drive 的 Workaround</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E8%AA%AA%E7%B5%90%E8%AB%96"><span class="nav-number">2.1.</span> <span class="nav-text">先說結論</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90%EF%BC%81"><span class="nav-number">2.2.</span> <span class="nav-text">大功告成！</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">afunTW</p>
+  <div class="site-description" itemprop="description">Valar Morghuils</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">afunTW</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
