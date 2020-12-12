@@ -12,7 +12,6 @@ script:
     - hexo clean
     - hexo g
 deploy:
-    fqdn: afun.tw
     provider: pages
     skip-cleanup: true
     github-token: $GH_TOKEN
