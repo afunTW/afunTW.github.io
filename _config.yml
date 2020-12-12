@@ -100,10 +100,18 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-#theme: landscape
-
-#https://github.com/klugjo/hexo-theme-clean-blog
 theme: custom
+theme_config:
+  reminder: true
+  favicon:
+    small: /images/favicon.ico
+    medium: /images/favicon.ico
+  darkmode: true
+  menu:
+    home: / || fa fa-home
+    archives: /archives/ || fa fa-archive
+  google_analytics:
+    tracking_id: UA-112475986-1
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
