@@ -19,3 +19,4 @@ deploy:
     on:
         branch: master
     local-dir: public
+    fqdn: afun.tw
