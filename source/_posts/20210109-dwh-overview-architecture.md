@@ -72,7 +72,7 @@ Three-Tier Architecture 架構設計為
 
 這邊我們會先撇除 Detailed Information in Archive Media 討論, 因為在前期其實大部份的時間還是會花在 ETL 跟商業邏輯的釐清, 通常等到 Data Warehouse 比較成熟後才會開始討論 Archive / Recovery / Backup 等等的策略
 
-### Load Manager
+## Load Manager
 
 ![load-manager](https://www.tutorialspoint.com/dwh/images/load_manager.jpg)
 
@@ -88,7 +88,7 @@ Three-Tier Architecture 架構設計為
     -   當涉及大量數據的時候, Gateways 技術並不適合使用
 -   簡單轉換: 透過簡單的資料轉換與檢查, 暫存表的結構應該要接近於最後 DWH table
 
-### Warehouse Manager
+## Warehouse Manager
 
 ![warehouse-manager-arch](https://www.tutorialspoint.com/dwh/images/warehouse_manager.jpg)
 
@@ -108,7 +108,7 @@ Three-Tier Architecture 架構設計為
 -   只要有新的資料就必須要被更新
 -   不需要備份, 因為隨時可以從 detailed information 重新建立
 
-### Query Manager
+## Query Manager
 
 ![query-manager-arch](https://www.tutorialspoint.com/dwh/images/query_manager.jpg)
 
