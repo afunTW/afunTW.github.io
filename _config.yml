@@ -102,16 +102,49 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: custom
 theme_config:
+  scheme: Muse
   reminder: true
+  darkmode: true
+  google_analytics:
+    tracking_id: UA-112475986-1
   favicon:
     small: /images/favicon.ico
     medium: /images/favicon.ico
-  darkmode: true
   menu:
     home: / || fa fa-home
     archives: /archives/ || fa fa-archive
-  google_analytics:
-    tracking_id: UA-112475986-1
+  menu_settings:
+    badges: true
+  social:
+    GitHub: https://github.com/afunTW || fab fa-github
+    Telegram: https://t.me/a_fun || fab fa-telegram
+    Facebook: https://www.facebook.com/afunTW || fab fa-facebook
+    Medium: https://afun.medium.com/ || fab fa-medium
+  social_icons:
+    icons_only: true
+    transition: true
+  github_banner:
+    enable: true
+    permalink: https://github.com/afunTW
+  toc:
+    wrap: true
+  tag_icon: true
+  related_posts:
+    enable: true
+    display_in_home: true
+  codeblock:
+    highlight_theme: night eighties
+  back2top:
+    scrollpercent: true
+  reading_progress:
+    enable: true
+  math:
+    mathjax:
+      enable: true
+  pjax: true
+  fancybox: true
+  lazyload: true
+  pangu: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
