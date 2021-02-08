@@ -147,6 +147,9 @@ theme_config:
   fancybox: true
   lazyload: true
   pangu: true
+  mermaid:
+    enable: true
+    theme: dark
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
