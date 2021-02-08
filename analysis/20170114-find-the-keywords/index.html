@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"afuntw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"afuntw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -45,7 +46,7 @@
 <meta property="og:image" content="https://afuntw.github.io/analysis/20170114-find-the-keywords/title_shares_trend.png">
 <meta property="og:image" content="https://afuntw.github.io/analysis/20170114-find-the-keywords/word-likes.png">
 <meta property="article:published_time" content="2017-01-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-09T07:59:13.264Z">
+<meta property="article:modified_time" content="2021-02-08T08:47:57.432Z">
 <meta property="article:author" content="afunTW">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="tfidf">
@@ -68,7 +69,7 @@
   <title>資料分析入門：具有影響力的文章關鍵字 | afunTW</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112475986-1"></script>
-    <script>
+    <script data-pjax>
       if (CONFIG.hostname === location.hostname) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -105,7 +106,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -149,7 +154,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">17</span></a>
 
   </li>
   </ul>
@@ -166,6 +171,9 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/afunTW" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 
     <main class="main">
@@ -210,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-09 15:59:13" itemprop="dateModified" datetime="2021-01-09T15:59:13+08:00">2021-01-09</time>
+                <time title="Modified: 2021-02-08 16:47:57" itemprop="dateModified" datetime="2021-02-08T16:47:57+08:00">2021-02-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,7 +263,7 @@
 <h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>接下來要分享的這些流程是我從毫無經驗的狀態，花了大約兩個禮拜做的東西，因此覺得這對於完全沒有學過資料分析的人，門檻應該算是相對來的低，但是同樣的這些也只是很初步的分析</p>
 <p>這篇文章的目標是「分析 Facebook 粉絲團貼文內容與按讚數，分享數之間的關聯性」，對於需要做網路行銷，社群行銷的人，可能幫的上一點忙，在購買 Facebook 廣告之餘，了解你的目標族群喜好的關鍵字與內容</p>
 <p>初步期待的結果是最後可以得到以下這種圖表</p>
-<p><img src="message_data.png"></p>
+<p><img data-src="message_data.png"></p>
 <h2 id="收集資料-1"><a href="#收集資料-1" class="headerlink" title="收集資料"></a>收集資料</h2><p>目標是讓新手可以快速取得一些資料並開始著手進行分析，因此在收集資料這塊，打算用比較簡單的方式</p>
 <p>Facebook 爬蟲建議透過 Facebook 所提供的 <a target="_blank" rel="noopener" href="https://developers.facebook.com/tools/explorer">Graph API</a> 取得，相關的 API 文件可以去<a target="_blank" rel="noopener" href="https://developers.facebook.com/docs/graph-api">官網</a>查詢，而我這次要使用的是透過 Python 的 <code>requests</code> library 搭配 Facebook URL API，取得文章內容，按讚數量，以及分享數量</p>
 <blockquote>
@@ -267,7 +275,7 @@
 </blockquote>
 <p>雖然還是有方法可以延長 Access token 有效期限，甚至可以取得永久 Access token，但我個人覺得不太安全也沒有必要</p>
 <p>回到正題，Facebook 爬蟲要做的第二件事情是要取得你想要分析的粉絲團 id，同樣的，這件事情可以透過 <a target="_blank" rel="noopener" href="https://developers.facebook.com/tools/explorer">Graph API</a> 取得，這邊以 Moli 社團為例，進入臉書頁面之後將上面的網址複製貼到 Graph API 上，submit 之後你可以透過回傳物件看到 id</p>
-<p><img src="graph-api-screenshor-20170108.png"></p>
+<p><img data-src="graph-api-screenshor-20170108.png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">token = <span class="string">&#x27;...&#x27;</span></span><br><span class="line"><span class="built_in">id</span> = <span class="string">&#x27;...&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 透過 python request 接 facebook URL API 拿到我們所需要的資料</span></span><br><span class="line">all_post = requests.get(<span class="string">&quot;https://graph.facebook.com/v2.8/&#123;id&#125;?fields=posts.limit(100)&#123; &#123; \</span></span><br><span class="line"><span class="string">  id,created_time,name,likes.limit(0).summary(true),shares,message \</span></span><br><span class="line"><span class="string">&#125; &#125;&amp;access_token=&#123;token&#125;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">id</span>=<span class="built_in">id</span>, token=token))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 透過 python json 將 response 轉為 json 物件</span></span><br><span class="line">all_post = all_post.json()</span><br></pre></td></tr></table></figure>
 
 <p>透過上面的程式碼我們會拿到以下這種格式的回傳物件</p>
@@ -300,7 +308,7 @@
 <p>以我這次做的分析為例，我認為出現頻率太極端的單字都可以排除在分析以外，出現頻率超過 70% 以上或是低於 1% 以下的單字我都不納入後面的分析流程（這邊只是舉例）</p>
 <h3 id="4-權重"><a href="#4-權重" class="headerlink" title="4. 權重"></a>4. 權重</h3><p>當我們根據頻率篩選完之後，會得到一個比原本斷字結果還要小的單字集合，但是這邊每個單字的權重是否都一樣呢？</p>
 <p>回頭思考，我們上一步驟是根據頻率篩選，但這樣結果有可能是<strong>某一個單字在其中一篇文章出現頻率超高，但出現該單字的文章數卻很少</strong>，考慮到這一個狀況，我一開始的作法是建立一張表格，計算該單字是否有出現在文章內，並列出該文章相對應的按讚與分享數</p>
-<p><img src="bool-table-20170108.png"></p>
+<p><img data-src="bool-table-20170108.png"></p>
 <p>但是後來被建議可以使用 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/TF-IDF">TF-IDF</a>，這個用於 text mining 的加權技術會同時考慮到出現的文章篇數與出現在同一篇文章內的次數，因此我這個分析後來就用 TF-IDF 重做了</p>
 <h3 id="5-關聯性分析（Correlation-amp-p-value）"><a href="#5-關聯性分析（Correlation-amp-p-value）" class="headerlink" title="5. 關聯性分析（Correlation &amp; p-value）"></a>5. 關聯性分析（Correlation &amp; p-value）</h3><p>當我們做完頻率的初步篩選以及單字的權重之後，我們接著就要做這些單字跟按讚數以及分享數之間的關聯連性分析，雖然是統計領域，但這些觀念其實國高中應該都有說過</p>
 <p>e.g. 當變數 A 的值越來越大時，變數 B 的值也越來越大時我們稱變數 A 與 B 是正相關，反之變數 B 的值越來越小時我們稱變數 A 與 B 是負相關</p>
@@ -316,14 +324,14 @@
 <li><code>p.value &lt; 0.001</code>：非常顯著，我們以 <code>***</code> 標記</li>
 </ul>
 <p>透過這些作法與標記，我們可以個別得到單字跟按讚的關聯性與顯著程度，以及單字跟分享的關聯性與顯著程度，我這邊為了最後要輸出的二維圖，還額外加了一個欄位 <code>significance</code> 代表單字同時對按讚與分享顯著，只對其中一項顯著，或是對兩者都不顯著的標記</p>
-<p><img src="pvalue-table-20170108.png"></p>
+<p><img data-src="pvalue-table-20170108.png"></p>
 <h3 id="6-資料視覺化"><a href="#6-資料視覺化" class="headerlink" title="6. 資料視覺化"></a>6. 資料視覺化</h3><p>我在這邊使用的是 <code>R</code> 的 <code>ggplot2</code>，這是一個非常強大也非常具有彈性的繪圖函式庫，我在 reference 中也列了一些可以參考的網站，所以這邊我就不多做介紹了</p>
 <p>做到最後一步，發現單字太多會造成圖表混亂，所以我這邊會手動挑出比較極端的關鍵字，然後不顯著的我後來也乾脆就不列出來了，因此最後的結果比較會像是以下這種圖</p>
-<p><img src="title_pansci_general.png"></p>
+<p><img data-src="title_pansci_general.png"></p>
 <p>當然這是比較一般性的分析，同樣的一份資料我們還可以根據日期看趨勢，以一個月為位移單位，一年份為資料集大小，透過 <code>facet_wrap</code> 可以做出以下這種圖表</p>
-<p><img src="title_shares_trend.png"></p>
+<p><img data-src="title_shares_trend.png"></p>
 <p>又或者有特別需要提出來做範例與介紹的關鍵字，我希望知道他在文章中與按讚或是分享數的分佈狀況，可以透過 boxplot 來做，如果要一次呈現二維資料可以參考 <a target="_blank" rel="noopener" href="http://docs.ggplot2.org/dev/stat_ellipse.html">stat_ellipse</a></p>
-<p><img src="word-likes.png"></p>
+<p><img data-src="word-likes.png"></p>
 <hr>
 <h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>以上列的是在兩個禮拜內從毫無經驗，歷經爬蟲，分析到視覺化的過程，其實這些都只是算是很基礎的資料分析過程，如果有人有看過<a target="_blank" rel="noopener" href="http://www.slideshare.net/swchen11/ss-70860055">陳昇瑋老師的報告</a>可能會覺得很多圖表都很像，那是因為我就是直接問那些團隊裏面的人邊學習的，哈哈哈</p>
 <p>看完那份報告，其實可以知道我這些只是很初期的分析程度，甚至也還不夠完美，但是對我來說卻是一個很好的練手，如果未來我開始接觸後面那些包含模型的建立，機器學習的部份，我再繼續分享</p>
@@ -349,11 +357,20 @@
     
     
     
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/crawling/20180122-crawling-imdb-by-api/" rel="bookmark">Crawling IMDB by API</a></div>
+    </li>
+  </ul>
+
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
-              <a href="/tags/tfidf/" rel="tag"># tfidf</a>
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/tfidf/" rel="tag"><i class="fa fa-tag"></i> tfidf</a>
           </div>
 
         
@@ -441,22 +458,36 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/afunTW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;afunTW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/a_fun" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;a_fun" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/afunTW" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;afunTW" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://afun.medium.com/" title="Medium → https:&#x2F;&#x2F;afun.medium.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-medium fa-fw"></i></a>
+      </span>
+  </div>
 
 
 
@@ -503,6 +534,11 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -516,6 +552,65 @@
 
 <script src="/js/next-boot.js"></script>
 
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
@@ -533,11 +628,28 @@
 
 
 
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
+    <div id="pjax">
   
 
   
 
+  
+
+    </div>
 </body>
 </html>
