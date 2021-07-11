@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - master  # default branch
+      - bugfix/deploy
 
 jobs:
   pages:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        submodules: true
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
