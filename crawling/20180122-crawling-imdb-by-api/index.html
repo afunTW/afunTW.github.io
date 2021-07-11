@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -39,7 +39,7 @@
 <meta property="og:description" content="Demonstrate how to crawling IMDB data from scratch">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2018-01-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-11T07:33:57.007Z">
+<meta property="article:modified_time" content="2021-07-11T07:52:48.249Z">
 <meta property="article:author" content="afunTW">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="imdb">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-11 15:33:57" itemprop="dateModified" datetime="2021-07-11T15:33:57+08:00">2021-07-11</time>
+                <time title="Modified: 2021-07-11 15:52:48" itemprop="dateModified" datetime="2021-07-11T15:52:48+08:00">2021-07-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,7 +236,7 @@
         <blockquote>
 <p>  Demonstrate how to crawling IMDB data from scratch</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 
 <p>這次是為了做「透過電影海報預測評分及分類」的 CNN task 所做的事前準備，我們必須取得至少上千至上萬筆資料，每一筆資料包含一部電影的海報（當作 input x）以及這部電影的評分與分類（當作 output y），雖然也可以純手工用 <code>requests</code> + <code>BeautifulSoup4</code> 或是 <code>Selenium</code> 或是 <code>Scrapy</code> 爬 IMDB 網頁上的資訊，但是有 API 可以用，像我這種懶人就會直接用 API 了。</p>
 <p>稍微在網路上看了一下，許多人都會推荐使用 <a target="_blank" rel="noopener" href="http://www.omdbapi.com/">OMDB API</a>，在他的網站範例上 query 一次可以發現他的 meta data 真的很齊全，API 也很簡單，申請 Token 也很簡單。</p>
