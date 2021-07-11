@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"afuntw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112475986-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-112475986-1');
+</script>
+
+  <meta name="description" content="網路上有些人說 nvidia driver 安裝在 Ubuntu 上本來就很多雷，也有人說用 docker 裝的話一切都很方便，而我說你沒踩到雷只是因為你不是在擦屁股的那一個">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 16.04 安裝 CUDA + cuDNN + nvidia driver 的踩雷心得 (非安裝步驟詳解)">
+<meta property="og:url" content="https://afuntw.github.io/data-engineering/20180524-ubuntu-1604-install-cuda-bomb-note/index.html">
+<meta property="og:site_name" content="afunTW">
+<meta property="og:description" content="網路上有些人說 nvidia driver 安裝在 Ubuntu 上本來就很多雷，也有人說用 docker 裝的話一切都很方便，而我說你沒踩到雷只是因為你不是在擦屁股的那一個">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2018-05-24T05:57:12.000Z">
+<meta property="article:modified_time" content="2020-12-09T05:57:12.000Z">
+<meta property="article:author" content="afunTW">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="cuda">
+<meta property="article:tag" content="cudnn">
+<meta property="article:tag" content="nvidia">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://afuntw.github.io/data-engineering/20180524-ubuntu-1604-install-cuda-bomb-note/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>Ubuntu 16.04 安裝 CUDA + cuDNN + nvidia driver 的踩雷心得 (非安裝步驟詳解) | afunTW</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112475986-1"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-112475986-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">afunTW</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">A Foolish Consistency is the Hobgoblin of Little Minds</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">19</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/afunTW" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://afuntw.github.io/data-engineering/20180524-ubuntu-1604-install-cuda-bomb-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="afunTW">
+      <meta itemprop="description" content="Valar Morghuils">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="afunTW">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu 16.04 安裝 CUDA + cuDNN + nvidia driver 的踩雷心得 (非安裝步驟詳解)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-24 13:57:12" itemprop="dateCreated datePublished" datetime="2018-05-24T13:57:12+08:00">2018-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-09 13:57:12" itemprop="dateModified" datetime="2020-12-09T13:57:12+08:00">2020-12-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/data-engineering/" itemprop="url" rel="index"><span itemprop="name">Data Engineering</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>  網路上有些人說 nvidia driver 安裝在 Ubuntu 上本來就很多雷，也有人說用 docker 裝的話一切都很方便，而我說你沒踩到雷只是因為你不是在擦屁股的那一個</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="在開始安裝之前"><a href="#在開始安裝之前" class="headerlink" title="在開始安裝之前"></a>在開始安裝之前</h1><p>如果是 PC 裝 GPU 的話記得先注意一下你的顯卡有沒有因為太重，導致接口變形然後跟主版接觸不良，因為我嘗試很多種裝法都裝不起來之後發現只是接觸不良的問題…</p>
+<p>我的需求是為了能夠跑 tensorflow-gpu，所以在測試方面會直接跑一個需要demo code ，這邊我直接選擇 keras project 裡的 mnist_cnn.py</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/keras-team/keras/blob/master/examples/mnist_cnn.py"><strong>keras-team/keras</strong></a></p>
+<p>你可以直接透過下面的方式下載並透過 nvidia-smi 監控</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget -c https://raw.githubusercontent.com/keras-team/keras/master/examples/mnist_cnn.py</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python3 mnist_cnn.py <span class="comment"># 執行 demo code</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> nvidia-smi -l <span class="comment"># 不斷印出 GPU 使用狀況</span></span></span><br></pre></td></tr></table></figure>
+
+<p>這邊要成功執行必須有幾點要檢查</p>
+<ul>
+<li>CUDA 版本是否支援 cuDNN 版本</li>
+<li>cuDNN 是否支援 tensorflow 版本</li>
+<li>nvidia driver 環境變數的路徑是否有設定正確</li>
+<li>CUDA 路徑是否有設定正確</li>
+</ul>
+<p>相關版本支援的檢查可以查看<a target="_blank" rel="noopener" href="https://www.tensorflow.org/install/install_linux#nvidia_requirements_to_run_tensorflow_with_gpu_support"><strong>官網</strong></a>，以上幾點就是再踩雷的過程中特別需要檢查的地方，另外建議一下去 nvidia 官網辦個帳號，因為下載相關程式的時候會用到</p>
+<p><a target="_blank" rel="noopener" href="https://www.tensorflow.org/install/install_linux#nvidia_requirements_to_run_tensorflow_with_gpu_support"><strong>Installing TensorFlow on Ubuntu | TensorFlow</strong></a></p>
+<p>CUDA 下載位置</p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive"><strong>CUDA Toolkit Archive</strong></a></p>
+<p>cuDNN 下載位置</p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive"><strong>cuDNN Archive</strong></a></p>
+<h1 id="重要套件的路徑"><a href="#重要套件的路徑" class="headerlink" title="重要套件的路徑"></a>重要套件的路徑</h1><p>這裡只是為了方便所以整理一下 (以 default 路徑為主)</p>
+<ul>
+<li><code>/usr/local/cuda</code> :<br>不一定存在，通常會是某個指定 CUDA 版本的 symbolic link，可透過該路徑底下的 <code>version.txt</code> 檢查</li>
+<li><code>/usr/local/cuda-8.0</code> : 以 cuda 8.0 為例的實際路徑</li>
+<li><code>/usr/local/cuda-8.0/lib64</code> <code>/usr/local/cuda-8.0/include</code> :<br>cuDNN 相關位置，如果要手動更改版本可以下載完之後直接複製相關檔案到這兩個路徑底下，然後更改 symbolic link 指向的位置</li>
+<li><code>/usr/lib/nvidia-&#123;version&#125;</code> :<br>nvidia driver 安裝位置，若是裝 cuda 8.0 會一次下載 <code>nvidia-375</code> 與 <code>nvidia-384</code> ，使用時要注意環境變數的設定</li>
+</ul>
+<p>上述東西都裝好後，仍需檢查設定的環境變數是否有錯，這些依照大家想在甚麼時候啟動這些環境變數決定</p>
+<ol>
+<li><code>~/.bashrc</code> 等相關 shell 設定檔</li>
+<li><code>~/.profile</code> 個人使用者環境變數設定檔</li>
+<li><code>/etc/profile</code> 全體使用者環境變數設定檔</li>
+</ol>
+<ul>
+<li><code>CUDA_HOME=/usr/local/cuda-8.0</code> :<br>以 cuda 8.0 舉例，也可以設定成 <code>/usr/local/cuda</code></li>
+<li><code>LD_LIBRARY_PATH=$&#123;CUDA_HOME&#125;/lib64:/usr/local/lib:/usr/lib/nvidia-375</code> : 以 cuda 8.0 舉例， nvidia driver default 375 version</li>
+<li><code>PATH=$&#123;CUDA_HOME&#125;/bin:$&#123;PATH&#125;</code> :<br>cuda 中的工具也設定在環境變數中方便使用，e.g. <code>nvcc</code></li>
+</ul>
+<h1 id="測試失敗重來就好"><a href="#測試失敗重來就好" class="headerlink" title="測試失敗重來就好"></a>測試失敗重來就好</h1><p>如果你測試失敗想重裝的話，記得要先把原先的全部都先砍掉</p>
+<ol>
+<li>清除 nvidia 相關套件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get purge nvidia*</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get autoremove</span></span><br></pre></td></tr></table></figure>
+
+<p>\2. 透過 dpkg 檢查是否有非透過 apt-get 安裝的需要移除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo dpkg -l <span class="string">&#x27;nvidia&#x27;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo dpkg --remove nvidia-&#123;name&#125;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="nvidia-driver-相關的雷"><a href="#nvidia-driver-相關的雷" class="headerlink" title="nvidia driver 相關的雷"></a>nvidia driver 相關的雷</h1><h2 id="Ubuntu-desktop-重複-login-畫面無法登入"><a href="#Ubuntu-desktop-重複-login-畫面無法登入" class="headerlink" title="Ubuntu desktop 重複 login 畫面無法登入"></a>Ubuntu desktop 重複 login 畫面無法登入</h2><p>首先當然現看你密碼有沒有打錯(廢話)，桌面版 login 發生問題我會直覺想到 X server</p>
+<ol>
+<li><code>.Xauthority</code> 出現問題:<br>首先透過 CTRL+ALT+F1 進入 tty 並登入，將紀錄了 X session 相關驗證資料的 <code>.Xauthority</code> 備份並砍掉舊的再重新登入</li>
+<li>nvidia driver 版本有問題:<br>同上述切換到 tty1 後清掉所有 nvidia driver (purge) 再重新登入</li>
+<li>內外顯 driver 衝突 (Nouveau v.s. Nvidia):<br>nouveau 是 open source driver，當我們裝好 nvidia driver 之後最好把 nouveau disable，可參考以下指令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> -e <span class="string">&quot;blacklist nouveau\nblacklist lbm-nouveau\noptions nouveau modeset=0\nalias nouveau off\nalias lbm-nouveau off\n&quot;</span> | sudo tee /etc/modprobe.d/blacklist-nouveau.conf</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> options nouveau modeset=0 | sudo tee -a </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> /etc/modprobe.d/nouveau-kms.conf</span></span><br><span class="line">sudo update-initramfs -u</span><br></pre></td></tr></table></figure>
+
+<h2 id="nvidia-smi-command-not-found"><a href="#nvidia-smi-command-not-found" class="headerlink" title="nvidia-smi command not found"></a>nvidia-smi command not found</h2><p>同常在安裝 cuda 的過程中就會以 dependency 的方式被安裝成功了才對，如果失敗的話我比較建議乾脆重裝 cuda</p>
+<ol>
+<li>硬體故障 (這篇一開始就說了)</li>
+<li>nvidia driver 環境變數設定錯誤</li>
+<li>nvidia driver 本身發生錯誤</li>
+</ol>
+<p>這邊可以直接進入 nvidia driver 位置檢查，e.g. <code>/usr/lib/nvidia-375/bin</code> 中應該會有 <code>nvidia-smi</code> 這隻程式，可以直接執行看看錯誤訊息是甚麼</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NVIDIA-SMI has failed because it couldn&#39;t communicate with the NVIDIA driver.</span><br></pre></td></tr></table></figure>
+
+<p>如果看到上述錯誤訊息，建議可以往硬體狀況開始檢查，接著再檢查 disable Secure boot 是否可以解決</p>
+<hr>
+<h1 id="runfile-派系安裝的雷"><a href="#runfile-派系安裝的雷" class="headerlink" title="runfile 派系安裝的雷"></a>runfile 派系安裝的雷</h1><p>安裝步驟可以參考</p>
+<p><a target="_blank" rel="noopener" href="https://www.linkedin.com/pulse/installing-nvidia-cuda-80-ubuntu-1604-linux-gpu-new-victor/"><strong>Installing Nvidia CUDA 8.0 on Ubuntu 16.04 for Linux GPU Computing (New Troubleshooting Guide)</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/799184/how-can-i-install-cuda-on-ubuntu-16-04?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa"><strong>How can I install CUDA on Ubuntu 16.04?</strong></a></p>
+<h2 id="var-share-dpkg-info-更動"><a href="#var-share-dpkg-info-更動" class="headerlink" title="/var/share/dpkg/info 更動"></a>/var/share/dpkg/info 更動</h2><p>執行 runfile 最後發現某些檔案遺失的時候，網路上有些文件會叫你先備份 <code>/var/share/dpkg/info</code> 然後刪掉原本的在重新跑 apt-get 安裝</p>
+<p>要注意這會導致你之後在執行 apt-get 的時候會出現大量的警告訊息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dpkg: warning: files list file for package &#39;libssh2-1:amd64&#39; missing; assuming package has no files currently installed</span><br><span class="line">dpkg: warning: files list file for package &#39;libkrb5-3:amd64&#39; missing; assuming package has no files currently installed</span><br><span class="line">dpkg: warning: files list file for package &#39;libwrap0:amd64&#39; missing; assuming package has no files currently installed</span><br><span class="line">dpkg: warning: files list file for package &#39;libcap2:amd64&#39; missing; assuming package has no files currently installed</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>雖然也有解法說出現這種警告訊息就執行類似下面這段 script 重新安裝 package (但明明套件都存在系統上只是 dpkg 找不到)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for package in $(sudo apt-get install catdoc 2&gt;&amp;1 | grep &quot;warning: files list file for package &#x27;&quot; | grep -Po &quot;[^&#x27;\n ]+&#x27;&quot; | grep -Po &quot;[^&#x27;]+&quot;);</span><br><span class="line">do</span><br><span class="line">  sudo apt-get -y install --reinstall &quot;$package&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>這邊需要花費非常大量的時間重跑，非常不建議更改 <code>/var/share/dpkg/info</code></p>
+<hr>
+<h1 id="deb-派系安裝的雷"><a href="#deb-派系安裝的雷" class="headerlink" title="deb 派系安裝的雷"></a>deb 派系安裝的雷</h1><p>安裝步驟可以參考</p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@maniac.tw/%E5%9C%A8-ubuntu-14-04-16-04-%E5%AE%89%E8%A3%9D-nvidia-%E9%A1%AF%E5%8D%A1%E9%A9%85%E5%8B%95%E7%A8%8B%E5%BC%8F-cuda-toolkit-%E5%8F%8A-cudnn-875e294530ed"><strong>在 Ubuntu 14.04/16.04 安裝 NVIDIA 顯卡驅動程式、 CUDA Toolkit 及 cuDNN</strong></a></p>
+<p>這邊強烈建議在安裝時要事先關掉 X server，通常是指關掉 <code>lightdm</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo service lightdm stop</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安裝時發現-cuda-版本與自己抓的-deb-local-版本不同"><a href="#安裝時發現-cuda-版本與自己抓的-deb-local-版本不同" class="headerlink" title="安裝時發現 cuda 版本與自己抓的 deb (local) 版本不同"></a>安裝時發現 cuda 版本與自己抓的 deb (local) 版本不同</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># install CUDA Toolkit v8.0</span></span><br><span class="line"><span class="comment"># instructions from https://developer.nvidia.com/cuda-downloads (linux -&gt; x86_64 -&gt; Ubuntu -&gt; 16.04 -&gt; deb (network))</span></span><br><span class="line">CUDA_REPO_PKG=<span class="string">&quot;cuda-repo-ubuntu1604_8.0.61-1_amd64.deb&quot;</span></span><br><span class="line">wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/<span class="variable">$&#123;CUDA_REPO_PKG&#125;</span></span><br><span class="line">sudo dpkg -i <span class="variable">$&#123;CUDA_REPO_PKG&#125;</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install cuda</span><br><span class="line"></span><br><span class="line"><span class="comment"># install cuDNN v6.0</span></span><br><span class="line">CUDNN_TAR_FILE=<span class="string">&quot;cudnn-8.0-linux-x64-v6.0.tgz&quot;</span></span><br><span class="line">wget http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/<span class="variable">$&#123;CUDNN_TAR_FILE&#125;</span></span><br><span class="line">tar -xzvf <span class="variable">$&#123;CUDNN_TAR_FILE&#125;</span></span><br><span class="line">sudo cp -P cuda/include/cudnn.h /usr/<span class="built_in">local</span>/cuda-8.0/include</span><br><span class="line">sudo cp -P cuda/lib64/libcudnn* /usr/<span class="built_in">local</span>/cuda-8.0/lib64/</span><br><span class="line">sudo chmod a+r /usr/<span class="built_in">local</span>/cuda-8.0/lib64/libcudnn*</span><br><span class="line"></span><br><span class="line"><span class="comment"># set environment variables</span></span><br><span class="line"><span class="built_in">export</span> PATH=/usr/<span class="built_in">local</span>/cuda-8.0/bin<span class="variable">$&#123;PATH:+:<span class="variable">$&#123;PATH&#125;</span>&#125;</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/usr/<span class="built_in">local</span>/cuda-8.0/lib64\<span class="variable">$&#123;LD_LIBRARY_PATH:+:<span class="variable">$&#123;LD_LIBRARY_PATH&#125;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在測試別人寫好的 script 時有遇到，明明是下載 cuda 8.0 可是在 apt-get install cuda 的時候卻發現是安裝 cuda 9.2 (但網路文件都是寫這樣安裝)</p>
+<p>這邊可能是因為你的 source list 上面已經有 cuda 9.2 的來源了，所以你必須要直接指定要裝 cuda 8.0 才會成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install coda-8.0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="libcublas-so-x-0-cannot-open-shared-object-file-no-such-file-or-directory"><a href="#libcublas-so-x-0-cannot-open-shared-object-file-no-such-file-or-directory" class="headerlink" title="libcublas.so.x.0 cannot open shared object file no such file or directory"></a>libcublas.so.x.0 cannot open shared object file no such file or directory</h2><p>cuda 或是 cuDNN 相關檔案找不到的錯誤訊息可以往兩個方向 debug</p>
+<ol>
+<li>環境變數設置確認是否正確</li>
+<li>cuDNN 版本是否正確</li>
+</ol>
+<p>環境變數的問題請參考上面重要套件的路徑，cuDNN 版本參考上面下載位置到官網下載與 CUDA 相容的版本</p>
+<hr>
+<p>如有錯誤，歡迎聯絡修正補充</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/devops/20161226-setting-iptable-in-nis/" rel="bookmark">Setting iptable in NIS</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/gpu/20190410-nvidia-cuda-openacc-workshop/" rel="bookmark">NVIDIA GPU CUDA/OpenACC WorkShop 紀錄</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/ubuntu/" rel="tag"><i class="fa fa-tag"></i> ubuntu</a>
+              <a href="/tags/cuda/" rel="tag"><i class="fa fa-tag"></i> cuda</a>
+              <a href="/tags/cudnn/" rel="tag"><i class="fa fa-tag"></i> cudnn</a>
+              <a href="/tags/nvidia/" rel="tag"><i class="fa fa-tag"></i> nvidia</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/ai/20180216-writeup-sppnet/" rel="prev" title="Paper Study - SPPNet">
+      <i class="fa fa-chevron-left"></i> Paper Study - SPPNet
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/data-engineering/20180804-download-gdrive-bigfile-with-curl/" rel="next" title="Download gdrive big file with curl">
+      Download gdrive big file with curl <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E9%96%8B%E5%A7%8B%E5%AE%89%E8%A3%9D%E4%B9%8B%E5%89%8D"><span class="nav-number">1.</span> <span class="nav-text">在開始安裝之前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%A5%97%E4%BB%B6%E7%9A%84%E8%B7%AF%E5%BE%91"><span class="nav-number">2.</span> <span class="nav-text">重要套件的路徑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E5%A4%B1%E6%95%97%E9%87%8D%E4%BE%86%E5%B0%B1%E5%A5%BD"><span class="nav-number">3.</span> <span class="nav-text">測試失敗重來就好</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nvidia-driver-%E7%9B%B8%E9%97%9C%E7%9A%84%E9%9B%B7"><span class="nav-number">4.</span> <span class="nav-text">nvidia driver 相關的雷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu-desktop-%E9%87%8D%E8%A4%87-login-%E7%95%AB%E9%9D%A2%E7%84%A1%E6%B3%95%E7%99%BB%E5%85%A5"><span class="nav-number">4.1.</span> <span class="nav-text">Ubuntu desktop 重複 login 畫面無法登入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nvidia-smi-command-not-found"><span class="nav-number">4.2.</span> <span class="nav-text">nvidia-smi command not found</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#runfile-%E6%B4%BE%E7%B3%BB%E5%AE%89%E8%A3%9D%E7%9A%84%E9%9B%B7"><span class="nav-number">5.</span> <span class="nav-text">runfile 派系安裝的雷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#var-share-dpkg-info-%E6%9B%B4%E5%8B%95"><span class="nav-number">5.1.</span> <span class="nav-text">&#x2F;var&#x2F;share&#x2F;dpkg&#x2F;info 更動</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#deb-%E6%B4%BE%E7%B3%BB%E5%AE%89%E8%A3%9D%E7%9A%84%E9%9B%B7"><span class="nav-number">6.</span> <span class="nav-text">deb 派系安裝的雷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E6%99%82%E7%99%BC%E7%8F%BE-cuda-%E7%89%88%E6%9C%AC%E8%88%87%E8%87%AA%E5%B7%B1%E6%8A%93%E7%9A%84-deb-local-%E7%89%88%E6%9C%AC%E4%B8%8D%E5%90%8C"><span class="nav-number">6.1.</span> <span class="nav-text">安裝時發現 cuda 版本與自己抓的 deb (local) 版本不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libcublas-so-x-0-cannot-open-shared-object-file-no-such-file-or-directory"><span class="nav-number">6.2.</span> <span class="nav-text">libcublas.so.x.0 cannot open shared object file no such file or directory</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">afunTW</p>
+  <div class="site-description" itemprop="description">Valar Morghuils</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/afunTW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;afunTW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/a_fun" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;a_fun" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/afunTW" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;afunTW" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://afun.medium.com/" title="Medium → https:&#x2F;&#x2F;afun.medium.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-medium fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">afunTW</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script data-pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'dark',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
