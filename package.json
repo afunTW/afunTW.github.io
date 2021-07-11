@@ -9,12 +9,13 @@
     "server": "hexo server"
   },
   "hexo": {
-    "version": "5.2.0"
+    "version": "5.4.0"
   },
   "dependencies": {
     "bulma-stylus": "^0.8.0",
-    "hexo": "^5.0.0",
-    "hexo-component-inferno": "^0.10.4",
+    "hexo": "^5.4.0",
+    "hexo-cli": "^4.3.0",
+    "hexo-component-inferno": "^0.10.5",
     "hexo-deployer-git": "^2.1.0",
     "hexo-filter-mermaid-diagrams": "^1.0.5",
     "hexo-generator-archive": "^1.0.0",
@@ -28,8 +29,9 @@
     "hexo-renderer-marked": "^3.0.0",
     "hexo-renderer-stylus": "^2.0.0",
     "hexo-server": "^2.0.0",
-    "inferno": "^7.4.6",
-    "inferno-create-element": "^7.4.6",
-    "npm": "^7.5.2"
+    "inferno": "^7.4.8",
+    "inferno-create-element": "^7.4.8",
+    "npm": "^7.19.1",
+    "npm-upgrade": "^3.0.0"
   }
 }
