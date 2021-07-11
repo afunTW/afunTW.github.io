@@ -31,27 +31,20 @@
   gtag('config', 'UA-112475986-1');
 </script>
 
-  <meta name="description" content="基本介紹 Data Warehouse 的設計目的與系統架構">
+  <meta name="description" content="介紹我如何透過 Obsidian 與其他工具實踐與練習卡片式管理法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Data Warehouse Overview - System Architecture">
-<meta property="og:url" content="https://afuntw.github.io/data-engineering/20210109-dwh-overview-architecture/index.html">
+<meta property="og:title" content="我所實踐的 Zettelkasten 卡片式管理法">
+<meta property="og:url" content="https://afuntw.github.io/knowledge-graph/20210710-my-zettelkasten-practicing/index.html">
 <meta property="og:site_name" content="afunTW">
-<meta property="og:description" content="基本介紹 Data Warehouse 的設計目的與系統架構">
+<meta property="og:description" content="介紹我如何透過 Obsidian 與其他工具實踐與練習卡片式管理法">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://panoply.io/uploads/versions/diagram1---x----750-1087x---.jpg">
-<meta property="og:image" content="https://www.tutorialspoint.com/dwh/images/detailed_information.jpg">
-<meta property="og:image" content="https://www.tutorialspoint.com/dwh/images/load_manager.jpg">
-<meta property="og:image" content="https://www.tutorialspoint.com/dwh/images/warehouse_manager.jpg">
-<meta property="og:image" content="https://www.tutorialspoint.com/dwh/images/query_manager.jpg">
-<meta property="article:published_time" content="2021-01-09T07:52:28.000Z">
-<meta property="article:modified_time" content="2021-01-09T07:52:28.000Z">
+<meta property="article:published_time" content="2021-07-10T09:50:12.000Z">
+<meta property="article:modified_time" content="2021-07-10T09:50:12.000Z">
 <meta property="article:author" content="afunTW">
-<meta property="article:tag" content="warehouse">
-<meta property="article:tag" content="infrastructure">
+<meta property="article:tag" content="zettelkasten">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://panoply.io/uploads/versions/diagram1---x----750-1087x---.jpg">
 
-<link rel="canonical" href="https://afuntw.github.io/data-engineering/20210109-dwh-overview-architecture/">
+<link rel="canonical" href="https://afuntw.github.io/knowledge-graph/20210710-my-zettelkasten-practicing/">
 
 
 <script id="page-configurations">
@@ -64,7 +57,7 @@
   };
 </script>
 
-  <title>Data Warehouse Overview - System Architecture | afunTW</title>
+  <title>我所實踐的 Zettelkasten 卡片式管理法 | afunTW</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112475986-1"></script>
     <script data-pjax>
@@ -186,7 +179,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://afuntw.github.io/data-engineering/20210109-dwh-overview-architecture/">
+    <link itemprop="mainEntityOfPage" href="https://afuntw.github.io/knowledge-graph/20210710-my-zettelkasten-practicing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +192,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Data Warehouse Overview - System Architecture
+          我所實踐的 Zettelkasten 卡片式管理法
         </h1>
 
         <div class="post-meta">
@@ -209,7 +202,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-09 15:52:28" itemprop="dateCreated datePublished" datetime="2021-01-09T15:52:28+08:00">2021-01-09</time>
+              <time title="Created: 2021-07-10 17:50:12" itemprop="dateCreated datePublished" datetime="2021-07-10T17:50:12+08:00">2021-07-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -217,7 +210,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/data-engineering/" itemprop="url" rel="index"><span itemprop="name">Data Engineering</span></a>
+                  <a href="/categories/knowledge-graph/" itemprop="url" rel="index"><span itemprop="name">Knowledge Graph</span></a>
                 </span>
             </span>
 
@@ -233,144 +226,94 @@
 
       
         <blockquote>
-<p>基本介紹 Data Warehouse 的設計目的與系統架構</p>
+<p>介紹我如何透過 Obsidian 與其他工具實踐與練習卡片式管理法</p>
 </blockquote>
 <a id="more"></a>
 
-<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>Data Warehouse 其實也是一種資料庫, 但因為目的不一樣所以通常會與 Operational Database 分開實做, 一般來說 Data Warehouse 是為了幫助商業決策的系統, 因此有以下幾種比較明顯的特性</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>根據<a target="_blank" rel="noopener" href="https://afun.tw/knowledge-graph/20210620-my-zettelkasten-understanding/">我所理解的 Zettelkasten 卡片式管理法</a> 想要進一步紀錄自己是如何實踐, 實際上只要工具可以支援反向連結 Backlink  跟視覺化的 Graph 都能滿足我實踐的工具, 目前是因為免費且 Community Plugin 的多樣性, 所以我才選擇 Obsidian</p>
+<h1 id="如何建立-Literature-Note"><a href="#如何建立-Literature-Note" class="headerlink" title="如何建立 Literature Note"></a>如何建立 Literature Note</h1><p>Literature Note 是閱讀第三方資源後所作的讀書筆記, 同時基於 Zettelkasten 筆記的撰寫原則, 文章內應該包含以下內容</p>
 <ul>
-<li>主題導向 (Subject Oriented), 會先定義主題之後才會去建立表格</li>
-<li>整合性資料 (Integrated), 整合多種不同的資料來源根據主題建立表格</li>
-<li>隨著時間變化 (Time Variant), 因為資料是提供歷史觀點, 所以都要定義是哪一段明確的時間區間</li>
-<li>不易揮發 (Non-Volatile), 新的資料不會造成歷史資料被刪除</li>
+<li>原文標題與連結: 確保隨時可以回朔原文</li>
+<li>建立 Tags: 提供多樣性分類的功能性</li>
+<li>我所認為的原文重點: 只擷取重要的資訊</li>
+<li>以自己認知的內容重新敘述我所認為的原文重點: 將短期記憶轉變為長期記憶</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>OLTP (Operational Database)</th>
-<th>OLAP (Data Warehouse)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>目的</td>
-<td>維持商業營運用</td>
-<td>提供一般性的資料格式給內部員工使用</td>
-</tr>
-<tr>
-<td>資料週期</td>
-<td>維護資料現況</td>
-<td>維護資料歷史</td>
-</tr>
-<tr>
-<td>資料粒度</td>
-<td>Primitive and Highly Detail</td>
-<td>Summarized and Consolidated</td>
-</tr>
-<tr>
-<td>資料量</td>
-<td>相對少, 主要是現有資訊</td>
-<td>相對多, 主要是歷史資訊且資料來源複雜</td>
-</tr>
-<tr>
-<td>資料更新頻率</td>
-<td>快</td>
-<td>慢</td>
-</tr>
-<tr>
-<td>使用者數量</td>
-<td>相對多, 面向消費者</td>
-<td>相對少, 面向內部員工</td>
-</tr>
-<tr>
-<td>Schema</td>
-<td>Entity Relationship Model</td>
-<td>Star / Snowflake / Fact Constellation</td>
-</tr>
-<tr>
-<td>架構需求</td>
-<td>多工 / 備援 / 穩定</td>
-<td>彈性</td>
-</tr>
-</tbody></table>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><p>Data Warehouse 並不單純只是一個 database, 它還包含周遭其他延伸的元件而形成一個系統</p>
+<p>同時推薦相關的工具可以讓我們快速建立 Literature Note</p>
 <ul>
-<li>Metadata: 資料的資料<ul>
-<li><strong>Business metadata</strong>: data ownership, business definition, changing policy</li>
-<li><strong>Operational metadata</strong>: data status (active, archive, purged, …), data lineage (history logs of migrated, transform, …)</li>
-<li>Data for mapping from operational environment to Data Warehouse</li>
-<li>The algorithm for summarization</li>
+<li>Obsidian Community Plugin<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/SilentVoid13/Templater">SilentVoid13/Templater: A template plugin for obsidian</a>: 可以建立一個專門放 Template 的資料夾, 並透過各種變數讓你建立的時候自動帶入你需要的值, 對於建立文章結構非常有幫助</li>
 </ul>
 </li>
-<li>Data Mart: 被組織過的 Data Warehouse 子集合, 只為特定一群人服務, 且都具有主題<ul>
-<li>經常實作在便宜的 server 上</li>
-<li>通常 data mart 的實作時間都比較短, 在幾個禮拜內就可完成</li>
-<li>如果沒有被組織計畫過, data mart 的生命週期很難長時間維持</li>
-<li>data mart 是針對部門客製化後的子集合, 可以視為是其他部門的 data warehouse</li>
+<li>Chrome Add-On<ul>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/tabcopy/micdllihgoppmejpecmkilggmaagfdmb?hl=zh-TW">TabCopy - Chrome 線上應用程式商店</a>: 可以客製化 URL 各種格式, e.g. Markdown Link, Obsidian Backlink, …</li>
+<li><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/roam-highlighter/mcoimieglmhdjdoplhpcmifgplkbfibp">Roam-highlighter - Chrome 線上應用程式商店</a>: 可以在瀏覽網路文章時畫重點, 並客製化成你需要的 Highlight Format</li>
 </ul>
 </li>
 </ul>
-<h1 id="Infrastructure"><a href="#Infrastructure" class="headerlink" title="Infrastructure"></a>Infrastructure</h1><p>個人認為根據 Data Warehouse 負責建制與維護的角色不同, 會有定義上的些許差異</p>
-<p>以一般常見的 Three-Tier Architecture 為例, 系統架構分為 Bottom-Tier / Middle-Tier / Top-Tier</p>
-<img data-src="https://panoply.io/uploads/versions/diagram1---x----750-1087x---.jpg" alt="Panoply - Three-Tier Architecture" style="zoom:50%;" />
+<p>我們可以先建立 Literature Note Template</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[原文標題與連結, 視情況稍微調整標題]</span><br><span class="line"></span><br><span class="line">Tags: #LiteratureNote [其他 Tag]</span><br><span class="line"></span><br><span class="line">## Highlight</span><br><span class="line"></span><br><span class="line">[條列呈現原文重點]</span><br><span class="line"></span><br><span class="line">## Perspective</span><br><span class="line"></span><br><span class="line">[針對原文重點以自己的話重新敘述]</span><br></pre></td></tr></table></figure>
 
-<p>如果是比較偏向 RD 角色的人在主導 Data Warehouse 通常會把 Data Source 當作最底層 (Bottom Tier)<br>但如果是比較偏向資料分析角色的人主導, 在設計 Data Warehouse 的過程中比較不會討論 Operational Database, 僅僅把它當作建立過程中的 Data Source</p>
-<p>因為我自己在公司的定位比較屬於透過 Data 幫助公司做商業決策的角色, 所以下面的討論都以商業分析維目的來討論 Data Warehouse<br>Three-Tier Architecture 架構設計為</p>
+<p>其中原文標題與連結可以透過上面提到的 TabCopy 快速產生, 然後我會根據以下狀況微調並作為筆記的 Title</p>
 <ul>
-<li><strong>Bottom Tier</strong> (Data Warehouse Server): RDBMS</li>
-<li><strong>Middle Tier</strong> (OLAP Server): 主要負責 OLAP Tools 的 requests 要轉為 SQL 查詢 DWH</li>
-<li><strong>Top Tier</strong> (OLAP Tools): 前端界面</li>
+<li>簡體中文轉為繁體中文</li>
+<li>如果有作者會在後面加上 <code>- [作者名稱]</code></li>
+<li>標題過長會擷取重點</li>
+<li>標題太 General 會加上其他網頁提供的資訊</li>
 </ul>
-<h1 id="Data-Warehouse-Manager"><a href="#Data-Warehouse-Manager" class="headerlink" title="Data Warehouse Manager"></a>Data Warehouse Manager</h1><p>當我們確立了系統架構上的分類後, 可以更仔細的來討論圍繞在 Data Warehouse Server 周遭的元件<br>在整個系統架構中, 會透過不同的 Manager 管理不同階段的資料處理</p>
-<p><img data-src="https://www.tutorialspoint.com/dwh/images/detailed_information.jpg" alt="detailed-info"></p>
-<p>這邊我們會先撇除 Detailed Information in Archive Media 討論, 因為在前期其實大部份的時間還是會花在 ETL 跟商業邏輯的釐清, 通常等到 Data Warehouse 比較成熟後才會開始討論 Archive / Recovery / Backup 等等的策略</p>
-<h2 id="Load-Manager"><a href="#Load-Manager" class="headerlink" title="Load Manager"></a>Load Manager</h2><p><img data-src="https://www.tutorialspoint.com/dwh/images/load_manager.jpg" alt="load-manager"></p>
-<p>主要負責資料載入跟萃取的 Component, 因為比較接近底層, 所以通常資料內容比較接近 raw data</p>
+<h2 id="針對不同多媒體與格式調整"><a href="#針對不同多媒體與格式調整" class="headerlink" title="針對不同多媒體與格式調整"></a>針對不同多媒體與格式調整</h2><p>實際因為我們會從很多種渠道學習, 因此針對不同的多媒體其實都會對上述流程微調</p>
 <ul>
-<li>萃取資料: 從資料來源萃取資料<ul>
-<li>透過 Database Gateways 從 Operational Database 或是外部資料表做資料萃取 (Extraction)</li>
-<li>Database Gateways 替底層 DBMS 提供 SQL 界面做資料萃取</li>
-<li>Database Gateways e.g. Open Database Connection (ODBC), Java Database Connection (JDBC), …</li>
+<li>針對 Local 端的檔案無法以 URL 形式對原文做連結<ul>
+<li>將檔案放到 Obsidian Valult 中以資料夾管理</li>
+<li>透過反向連結取代 Markdown link 的功能</li>
 </ul>
 </li>
-<li>快速載入: 快速載入被萃取後的資料進入暫存表<ul>
-<li>Transformation 會影響資料處理的速度</li>
-<li>比較有效率的作法是先把資料載入道 RDBMS 再做資料的轉換跟檢查</li>
-<li>當涉及大量數據的時候, Gateways 技術並不適合使用</li>
+<li>針對投影片類型的內容<ul>
+<li>Highlight 部份在 Prefix 加上頁碼 e.g. <code>p10</code> 代表 page 10</li>
 </ul>
 </li>
-<li>簡單轉換: 透過簡單的資料轉換與檢查, 暫存表的結構應該要接近於最後 DWH table</li>
+<li>針對影片類型的內容<ul>
+<li>Highlight 部份在 Prefix 加上 Timestamp e.g. <code>00:01:35</code> 代表 1 分 35 秒</li>
 </ul>
-<h2 id="Warehouse-Manager"><a href="#Warehouse-Manager" class="headerlink" title="Warehouse Manager"></a>Warehouse Manager</h2><p><img data-src="https://www.tutorialspoint.com/dwh/images/warehouse_manager.jpg" alt="warehouse-manager-arch"></p>
-<p>主要負責資料管理的 Component, 這邊開始包含商業邏輯, 資料內容比較偏向商業分析</p>
-<ul>
-<li>通常需要搭配第三方系統, C, SQL, Scripts</li>
-<li>操作細節<ul>
-<li>分析資料並執行完整性檢查</li>
-<li>執行建立 indexes, business view, partition view</li>
-<li>產生新的聚合資料並更新 (Generate Normalizations)</li>
-<li>在 DWH 中備份資料與封存</li>
+</li>
+<li>針對教學平台的課程內容<ul>
+<li>Highlight 根據課程大綱以 Section 做階層管理</li>
+</ul>
+</li>
+<li>針對電子書或是 Online Guide 等包含龐大內容的資訊<ul>
+<li>針對小章節或是明確主題的內容拆為多個 Literature Note</li>
 </ul>
 </li>
 </ul>
-<p>當我們 Data Warehouse 開始要討論效能的時候通常也會從 Data Warehouse 開始著手</p>
+<h1 id="如何建立-Permanent-Note"><a href="#如何建立-Permanent-Note" class="headerlink" title="如何建立 Permanent Note"></a>如何建立 Permanent Note</h1><p>Permanent Note 紀錄自己的想法, 同樣基於 Zettelkasten 筆記的撰寫原則, 文章設計會包含以下內容</p>
 <ul>
-<li>加速一般性查詢的速度</li>
-<li>增加 Operational 花費</li>
-<li>只要有新的資料就必須要被更新</li>
-<li>不需要備份, 因為隨時可以從 detailed information 重新建立</li>
+<li>建立日期 + 具有原子性的主題作為標題: 在 Zettelkasten 系統中作為 Unique Identifier </li>
+<li>紀錄學習目標: 幫助未來理解該主題內包含什麼內容與為什麼要建立這份筆記</li>
+<li>建立筆記的日期: 未來如果更新的話會在更新處加上更新日期代表筆記的更動紀錄</li>
+<li>建立 Tags: 提供多樣性分類的功能性</li>
+<li>大綱: 根據思考邏輯架構建立 Outline</li>
+<li>參考資料: 紀錄資料來源同時也方便回朔資訊</li>
 </ul>
-<h2 id="Query-Manager"><a href="#Query-Manager" class="headerlink" title="Query Manager"></a>Query Manager</h2><p><img data-src="https://www.tutorialspoint.com/dwh/images/query_manager.jpg" alt="query-manager-arch"></p>
-<p>主要負責 SQL 處理過程的 Component</p>
+<p>我們可以先建立 Permanent Note Template</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[主題]</span><br><span class="line"></span><br><span class="line">- Created: [[%Y-%m-%d]]</span><br><span class="line">- Tags: #PermanentNote [其他 Tags]</span><br><span class="line"></span><br><span class="line">## 學習目標</span><br><span class="line"></span><br><span class="line">[為什麼紀錄這個主題與主題包含的內容]</span><br><span class="line"></span><br><span class="line">## 大綱</span><br><span class="line"></span><br><span class="line">## Reference</span><br><span class="line"></span><br><span class="line">[如果有參考外部資訊, 條列呈現外部連結]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="如何決定建立反向連結的策略"><a href="#如何決定建立反向連結的策略" class="headerlink" title="如何決定建立反向連結的策略"></a>如何決定建立反向連結的策略</h1><p>反向連結是 Zettelkasten 中的核心概念, 但根據不同的 Workflow 我會用不同的策略決定哪裡應該建立反向連結</p>
 <ul>
-<li>透過 C tools 或是 RDBMS 做重新導向 (SQL to table) 與排程</li>
-<li>透過第三方系統做排程</li>
-<li>儲存 procedure</li>
-<li>Query 的管理工具</li>
+<li>Bottom-Up: 不斷紀錄再不斷歸納<ul>
+<li>建立 Literature Note 與 Permanent Note 的過程中, 我們可以直接針對有興趣進一步探索的內容<strong>事先</strong>建立反向連結</li>
+<li>當多個筆記都跟同樣的主題建立連結時就可以建立該主題作為新的筆記, 通常會是 Bibliographical Note 或是 Permanent Note</li>
+<li>通常這種反向連結的筆記標題都比較偏向關鍵字形式 e.g. <code>[[Zettelkasten]]</code></li>
+</ul>
+</li>
+<li>Top-Down: 不斷擴展再不斷紀錄<ul>
+<li>有明確想要了解的主題, 以此建立 Permanent Note 為出發點, 不斷延伸產生新的 Literature Note 與 Permanent Note</li>
+<li>建立筆記的過程中透過關聯或是 Hashtag 發現其他筆記有想要紀錄的重點, 會直接針對<strong>已經存在的筆記</strong>做反向連結</li>
+<li>該反向連結的筆記標題明確指向一個主題</li>
+<li>大家以往都比較偏好 Top-Down 的作法</li>
+</ul>
+</li>
 </ul>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.tutorialspoint.com/dwh/index.htm">Tutorialspoint</a></li>
-<li><a target="_blank" rel="noopener" href="https://towardsdatascience.com/fundamentals-of-data-architecture-to-help-data-scientists-understand-architectural-diagrams-better-7bd26de41c66">Fundamentals of Data Architecture to Help Data Scientists Understand Architectural Diagrams Better</a></li>
+<li><a target="_blank" rel="noopener" href="https://twgreatdaily.com/q840TnQBURTf-Dn5DpiL.html">用 Zettelkasten 筆記工具 Obsidian 打造「知識循環」</a></li>
 </ul>
 
     </div>
@@ -379,13 +322,18 @@
     
     
       
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/knowledge-graph/20210620-my-zettelkasten-understanding/" rel="bookmark">我所理解的 Zettelkasten 卡片式管理法</a></div>
+    </li>
+  </ul>
 
 
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/warehouse/" rel="tag"><i class="fa fa-tag"></i> warehouse</a>
-              <a href="/tags/infrastructure/" rel="tag"><i class="fa fa-tag"></i> infrastructure</a>
+              <a href="/tags/zettelkasten/" rel="tag"><i class="fa fa-tag"></i> zettelkasten</a>
           </div>
 
         
@@ -394,13 +342,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/20201114-hexo-init-github-page/" rel="prev" title="Hexo - 基本設定與 GitHub Page 發佈流程">
-      <i class="fa fa-chevron-left"></i> Hexo - 基本設定與 GitHub Page 發佈流程
+    <a href="/knowledge-graph/20210620-my-zettelkasten-understanding/" rel="prev" title="我所理解的 Zettelkasten 卡片式管理法">
+      <i class="fa fa-chevron-left"></i> 我所理解的 Zettelkasten 卡片式管理法
     </a></div>
-      <div class="post-nav-item">
-    <a href="/machine-learning/20210208-basic-ucb-ts/" rel="next" title="MAB - UCB <> TS 基本概念">
-      MAB - UCB <> TS 基本概念 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -459,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Components"><span class="nav-number">1.1.</span> <span class="nav-text">Components</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Infrastructure"><span class="nav-number">2.</span> <span class="nav-text">Infrastructure</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Warehouse-Manager"><span class="nav-number">3.</span> <span class="nav-text">Data Warehouse Manager</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Load-Manager"><span class="nav-number">3.1.</span> <span class="nav-text">Load Manager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Warehouse-Manager"><span class="nav-number">3.2.</span> <span class="nav-text">Warehouse Manager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query-Manager"><span class="nav-number">3.3.</span> <span class="nav-text">Query Manager</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B-Literature-Note"><span class="nav-number">2.</span> <span class="nav-text">如何建立 Literature Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%9D%E5%B0%8D%E4%B8%8D%E5%90%8C%E5%A4%9A%E5%AA%92%E9%AB%94%E8%88%87%E6%A0%BC%E5%BC%8F%E8%AA%BF%E6%95%B4"><span class="nav-number">2.1.</span> <span class="nav-text">針對不同多媒體與格式調整</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BB%BA%E7%AB%8B-Permanent-Note"><span class="nav-number">3.</span> <span class="nav-text">如何建立 Permanent Note</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B1%BA%E5%AE%9A%E5%BB%BA%E7%AB%8B%E5%8F%8D%E5%90%91%E9%80%A3%E7%B5%90%E7%9A%84%E7%AD%96%E7%95%A5"><span class="nav-number">4.</span> <span class="nav-text">如何決定建立反向連結的策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
