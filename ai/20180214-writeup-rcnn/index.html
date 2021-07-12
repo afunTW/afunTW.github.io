@@ -14,11 +14,10 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"afuntw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"afuntw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -42,7 +41,7 @@
 <meta property="og:image" content="https://i.imgur.com/Pp1J62N.jpg">
 <meta property="og:image" content="https://i.imgur.com/UFWnsyK.jpg">
 <meta property="article:published_time" content="2018-02-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-07-11T09:51:08.079Z">
+<meta property="article:modified_time" content="2021-07-12T01:42:20.460Z">
 <meta property="article:author" content="afunTW">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="computer vision">
@@ -67,7 +66,7 @@
   <title>Paper Study - RCNN | afunTW</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112475986-1"></script>
-    <script data-pjax>
+    <script>
       if (CONFIG.hostname === location.hostname) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -155,6 +154,16 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">19</span></a>
 
   </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">37</span></a>
+
+  </li>
   </ul>
 </nav>
 
@@ -171,7 +180,7 @@
   </div>
   <div class="reading-progress-bar"></div>
 
-  <a href="https://github.com/afunTW" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FmdW5UVw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
 
 
     <main class="main">
@@ -189,7 +198,7 @@
     <link itemprop="mainEntityOfPage" href="https://afuntw.github.io/ai/20180214-writeup-rcnn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="afunTW">
       <meta itemprop="description" content="Valar Morghuils">
     </span>
@@ -216,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-07-11 17:51:08" itemprop="dateModified" datetime="2021-07-11T17:51:08+08:00">2021-07-11</time>
+                <time title="Modified: 2021-07-12 09:42:20" itemprop="dateModified" datetime="2021-07-12T09:42:20+08:00">2021-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,7 +249,7 @@
 
       
         <blockquote>
-<p>arxiv 論文: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1311.2524">https://arxiv.org/abs/1311.2524</a></p>
+<p>arxiv 論文: <span class="exturl" data-url="aHR0cHM6Ly9hcnhpdi5vcmcvYWJzLzEzMTEuMjUyNA==">https://arxiv.org/abs/1311.2524<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
 <span id="more"></span>
 
@@ -278,7 +287,7 @@
 <li>提取每個區域的 ROI</li>
 </ol>
 <blockquote>
-<p>Selective Search 細節可參考: <a target="_blank" rel="noopener" href="http://blog.csdn.net/mao_kun/article/details/50576003">http://blog.csdn.net/mao_kun/article/details/50576003</a></p>
+<p>Selective Search 細節可參考: <span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbWFvX2t1bi9hcnRpY2xlL2RldGFpbHMvNTA1NzYwMDM=">http://blog.csdn.net/mao_kun/article/details/50576003<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
 <h3 id="CNN-extract-feature"><a href="#CNN-extract-feature" class="headerlink" title="CNN extract feature"></a>CNN extract feature</h3><h4 id="Preprocess"><a href="#Preprocess" class="headerlink" title="Preprocess"></a>Preprocess</h4><ul>
 <li>Resize Region Proposal</li>
@@ -288,7 +297,7 @@
 <h4 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h4><p>經過 resize 跟 normalization 後的 Region Proposal 再當作 input 輸入 CNN, 最後 output 4096 維的 feature. 因為我們有 2000 個 Region Proposal, 所以這邊的 output 就會是 (2000, 4096)</p>
 <h3 id="SVM-classification"><a href="#SVM-classification" class="headerlink" title="SVM classification"></a>SVM classification</h3><p>SVM 是用來做 binary classification 的分類器, 假設我們有 20 種物件要做辨別, 那就需要 20 個 SVM 分類器, 權重矩陣就是 (4096, 20)</p>
 <p>因此 Region Proposal 經過 CNN 再經過 SVM 最後 ouput 會是 <strong>(2000, 4096) X (4096, 20) = (2000, 20)</strong>, 最後再對剩下的分類結果做 NMS(non maximum suppression)[^NMS], 剔除重疊的 Region Proposal, 得到得分比較高的 Region Proposal</p>
-<p>[^NMS]: NMS (<a target="_blank" rel="noopener" href="http://www.cnblogs.com/makefile/p/nms.html">detail</a>) 可以視為局部最大搜索</p>
+<p>[^NMS]: NMS (<span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS9tYWtlZmlsZS9wL25tcy5odG1s">detail<i class="fa fa-external-link-alt"></i></span>) 可以視為局部最大搜索</p>
 <h3 id="Bounding-Box-Regression"><a href="#Bounding-Box-Regression" class="headerlink" title="Bounding Box Regression"></a>Bounding Box Regression</h3><p>對所有分類剩餘的 Region Proposal 做 Regression 修正位置成為最終要輸出的 bounding box</p>
 <p>我們在計算最後的 mAP 時是根據 IOU (Intersection over Union), 也就是<strong>兩個 Region 的交集面積 / 兩個 Region 的聯集面積</strong>, 以面積覆蓋率來計算定位精準度, 因此我們透過 SS 選出來的 Region Proposal 即使經過 SVM 分類成功, 還是有可能因為 IOU 的關係，算出來的 mAP 不夠高</p>
 <p><img data-src="https://i.imgur.com/UFWnsyK.jpg" alt="Explain Regression"></p>
@@ -300,9 +309,9 @@
 </ol>
 <h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>雖然在論文中有做了其他實驗, 例如更換 CNN 架構, 測試不同資料集, 但是這邊介紹 R-CNN 主要是因為他是 Deep Learning 在 Object Deteion 上應用的里程碑, 實際上 mAP 還是達不到可以做產品的標準, 而且訓練的時間也非常長, 需要的硬碟空間也非常大, 這些缺點都會在之後的系列論文中一一改善</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/wopawn/article/details/52133338">RCNN blog</a></li>
-<li><a target="_blank" rel="noopener" href="http://blog.csdn.net/xyfengbo/article/details/70227173">Detection 系列文章 - 馮校</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/venus024/p/5717766.html">Detection 系列文章 - venus</a></li>
+<li><span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd29wYXduL2FydGljbGUvZGV0YWlscy81MjEzMzMzOA==">RCNN blog<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHlmZW5nYm8vYXJ0aWNsZS9kZXRhaWxzLzcwMjI3MTcz">Detection 系列文章 - 馮校<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS92ZW51czAyNC9wLzU3MTc3NjYuaHRtbA==">Detection 系列文章 - venus<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 <hr>
 <h2 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h2><p>因為 Deep Learning 在圖片上的結果是相對其他領域顯著的, 所以我接下來會紀錄一些這邊的發展過程, 但是一些比較久遠的論文（像這篇就是）我會先跳過技術細節, 因為這些之後也會被取代掉, 而且因為實作成本太大, 所以我也不會實際去測試過, 如果有錯誤再麻煩告知, 也歡迎討論</p>
@@ -322,6 +331,23 @@
       <div class="popular-posts-title"><a href="/data-engineering/20180905-docker-for-deep-learning-primer/" rel="bookmark">Docker for deep learning primer</a></div>
     </li>
   </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>afunTW
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://afuntw.github.io/ai/20180214-writeup-rcnn/" title="Paper Study - RCNN">https://afuntw.github.io/ai/20180214-writeup-rcnn/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
 
 
       <footer class="post-footer">
@@ -410,6 +436,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="afunTW"
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">afunTW</p>
   <div class="site-description" itemprop="description">Valar Morghuils</div>
 </div>
@@ -424,11 +452,13 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
+          
         <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
+          
         <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
@@ -436,17 +466,20 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/afunTW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;afunTW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FmdW5UVw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;afunTW"><i class="fab fa-github fa-fw"></i></span>
       </span>
       <span class="links-of-author-item">
-        <a href="https://t.me/a_fun" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;a_fun" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i></a>
+        <span class="exturl" data-url="aHR0cHM6Ly90Lm1lL2FfZnVu" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;a_fun"><i class="fab fa-telegram fa-fw"></i></span>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.facebook.com/afunTW" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;afunTW" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i></a>
+        <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL2FmdW5UVw==" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;afunTW"><i class="fab fa-facebook fa-fw"></i></span>
       </span>
       <span class="links-of-author-item">
-        <a href="https://afun.medium.com/" title="Medium → https:&#x2F;&#x2F;afun.medium.com&#x2F;" rel="noopener" target="_blank"><i class="fab fa-medium fa-fw"></i></a>
+        <span class="exturl" data-url="aHR0cHM6Ly9hZnVuLm1lZGl1bS5jb20v" title="Medium → https:&#x2F;&#x2F;afun.medium.com&#x2F;"><i class="fab fa-medium fa-fw"></i></span>
       </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
   </div>
 
 
@@ -476,7 +509,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">afunTW</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly9tdXNlLnRoZW1lLW5leHQub3Jn">NexT.Muse</span>
   </div>
 
         
@@ -494,9 +527,7 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/pjax/pjax.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
@@ -512,65 +543,6 @@
 
 <script src="/js/next-boot.js"></script>
 
-  <script>
-var pjax = new Pjax({
-  selectors: [
-    'head title',
-    '#page-configurations',
-    '.content-wrap',
-    '.post-toc-wrap',
-    '.languages',
-    '#pjax'
-  ],
-  switches: {
-    '.post-toc-wrap': Pjax.switches.innerHTML
-  },
-  analytics: false,
-  cacheBust: false,
-  scrollTo : !CONFIG.bookmark.enable
-});
-
-window.addEventListener('pjax:success', () => {
-  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
-    var code = element.text || element.textContent || element.innerHTML || '';
-    var parent = element.parentNode;
-    parent.removeChild(element);
-    var script = document.createElement('script');
-    if (element.id) {
-      script.id = element.id;
-    }
-    if (element.className) {
-      script.className = element.className;
-    }
-    if (element.type) {
-      script.type = element.type;
-    }
-    if (element.src) {
-      script.src = element.src;
-      // Force synchronous loading of peripheral JS.
-      script.async = false;
-    }
-    if (element.dataset.pjax !== undefined) {
-      script.dataset.pjax = '';
-    }
-    if (code !== '') {
-      script.appendChild(document.createTextNode(code));
-    }
-    parent.appendChild(script);
-  });
-  NexT.boot.refresh();
-  // Define Motion Sequence & Bootstrap Motion.
-  if (CONFIG.motion.enable) {
-    NexT.motion.integrator
-      .init()
-      .add(NexT.motion.middleWares.subMenu)
-      .add(NexT.motion.middleWares.postList)
-      .bootstrap();
-  }
-  NexT.utils.updateSidebarPosition();
-});
-</script>
-
 
 
 
@@ -588,7 +560,7 @@ window.addEventListener('pjax:success', () => {
 
 
 
-<script data-pjax>
+<script>
 if (document.querySelectorAll('pre.mermaid').length) {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
     mermaid.initialize({
@@ -603,13 +575,21 @@ if (document.querySelectorAll('pre.mermaid').length) {
 </script>
 
 
-    <div id="pjax">
   
 
   
 
   
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://afuntw.github.io/ai/20180214-writeup-rcnn/',]
+      });
+      });
+  </script>
 
-    </div>
 </body>
 </html>
