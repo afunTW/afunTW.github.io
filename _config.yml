@@ -114,7 +114,6 @@ theme_config:
     medium: /images/favicon.ico
   creative_commons:
     sidebar: true
-    post: true
   darkmode: true
   # Menu
   menu:
