@@ -104,19 +104,33 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: custom
 theme_config:
+  # Core
   scheme: Muse
   reminder: true
-  darkmode: true
-  google_analytics:
-    tracking_id: UA-112475986-1
+  minfy: true
+  # Information Settings
   favicon:
     small: /images/favicon.ico
     medium: /images/favicon.ico
+  creative_commons:
+    sidebar: true
+    post: true
+  darkmode: true
+  # Menu
   menu:
     home: / || fa fa-home
+    categories: /categories/ || fa fa-th
     archives: /archives/ || fa fa-archive
+    tags: /tags/ || fa fa-tags
   menu_settings:
     badges: true
+  # Sidebar Settings
+  sidebar:
+    position: left
+    display: always
+  avatar:
+    url: /images/avatar.jpg
+    rounded: true
   social:
     GitHub: https://github.com/afunTW || fab fa-github
     Telegram: https://t.me/a_fun || fab fa-telegram
@@ -125,31 +139,46 @@ theme_config:
   social_icons:
     icons_only: true
     transition: true
-  github_banner:
-    enable: true
-    permalink: https://github.com/afunTW
   toc:
     wrap: true
+  # Post Setting
   tag_icon: true
   related_posts:
     enable: true
     display_in_home: true
+  # MISC Theme Setting
   codeblock:
     highlight_theme: night eighties
+    copy_button:
+      enable: true
+      show_result: true
   back2top:
     scrollpercent: true
   reading_progress:
     enable: true
+  github_banner:
+    enable: true
+    permalink: https://github.com/afunTW
+  # SEO Settings
+  exturl: true
+  # Third Party Plugins Settings
   math:
     mathjax:
       enable: true
-  pjax: true
-  fancybox: true
+  mediumzoom: true
   lazyload: true
-  pangu: true
   mermaid:
     enable: true
     theme: dark
+  pangu: true
+  quicklink:
+    enable: true
+    home: true
+    archive: true
+  # Statistics and Analytics
+  google_analytics:
+    tracking_id: UA-112475986-1
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
